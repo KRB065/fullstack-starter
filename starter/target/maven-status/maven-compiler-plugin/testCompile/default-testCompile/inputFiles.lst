@@ -1,0 +1,4 @@
+/home/kbonta2/fullstack-starter/starter/src/test/java/com/starter/fullstack/config/EmbedMongoClientOverrideConfig.java
+/home/kbonta2/fullstack-starter/starter/src/test/java/com/starter/fullstack/dao/InventoryDAOTest.java
+/home/kbonta2/fullstack-starter/starter/src/test/java/com/starter/fullstack/rest/ProductControllerTest.java
+/home/kbonta2/fullstack-starter/starter/src/test/java/com/starter/fullstack/dao/ProductDAOTest.java

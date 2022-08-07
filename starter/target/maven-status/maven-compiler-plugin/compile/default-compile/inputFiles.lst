@@ -1,0 +1,11 @@
+/home/kbonta2/fullstack-starter/starter/src/main/java/com/starter/fullstack/dao/InventoryDAO.java
+/home/kbonta2/fullstack-starter/starter/src/main/java/com/starter/fullstack/api/Inventory.java
+/home/kbonta2/fullstack-starter/starter/src/main/java/com/starter/fullstack/dao/ProductDAO.java
+/home/kbonta2/fullstack-starter/starter/src/main/java/com/starter/fullstack/api/Product.java
+/home/kbonta2/fullstack-starter/starter/src/main/java/com/starter/fullstack/config/WebSecurityConfig.java
+/home/kbonta2/fullstack-starter/starter/src/main/java/com/starter/fullstack/config/StarterConfig.java
+/home/kbonta2/fullstack-starter/starter/src/main/java/com/starter/fullstack/StarterApp.java
+/home/kbonta2/fullstack-starter/starter/src/main/java/com/starter/fullstack/api/UnitOfMeasurement.java
+/home/kbonta2/fullstack-starter/starter/src/main/java/com/starter/fullstack/config/WebSecurityProperties.java
+/home/kbonta2/fullstack-starter/starter/src/main/java/com/starter/fullstack/rest/InventoryController.java
+/home/kbonta2/fullstack-starter/starter/src/main/java/com/starter/fullstack/rest/ProductController.java

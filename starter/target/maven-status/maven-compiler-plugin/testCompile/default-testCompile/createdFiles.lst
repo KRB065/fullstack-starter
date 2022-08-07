@@ -1,0 +1,3 @@
+com/starter/fullstack/dao/ProductDAOTest.class
+com/starter/fullstack/config/EmbedMongoClientOverrideConfig.class
+com/starter/fullstack/rest/ProductControllerTest.class
