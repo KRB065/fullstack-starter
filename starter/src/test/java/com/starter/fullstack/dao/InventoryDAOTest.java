@@ -4,6 +4,8 @@ import com.starter.fullstack.api.Inventory;
 import com.starter.fullstack.config.EmbedMongoClientOverrideConfig;
 import java.util.List;
 import javax.annotation.Resource;
+import javax.validation.constraints.AssertTrue;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,6 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.security.access.method.P;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -48,6 +51,8 @@ public class InventoryDAOTest {
     this.inventoryDAO.create(inventory1);
     System.out.println("After Create Method ID: " + inventory1.getId());
     Assert.assertTrue(inventory1.getId() != ID);
+    Assert.assertTrue(inventory1.getName() == NAME );
+    Assert.assertTrue(inventory1.getProductType() == PRODUCT_TYPE);
   }
   /**
    * Test Find All method.
