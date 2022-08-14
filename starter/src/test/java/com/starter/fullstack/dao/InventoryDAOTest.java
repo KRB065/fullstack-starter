@@ -17,13 +17,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 /**
  * Test Inventory DAO.
  */
-@ContextConfiguration(classes = {EmbedMongoClientOverrideConfig.class})
+@ContextConfiguration(classes = { EmbedMongoClientOverrideConfig.class })
 @DataMongoTest
 @RunWith(SpringRunner.class)
 public class InventoryDAOTest {
   @Resource
   private MongoTemplate mongoTemplate;
   private InventoryDAO inventoryDAO;
+  private static final String ID = "save_id";
   private static final String NAME = "Amber";
   private static final String PRODUCT_TYPE = "hops";
 
@@ -35,6 +36,25 @@ public class InventoryDAOTest {
   @After
   public void tearDown() {
     this.mongoTemplate.dropCollection(Inventory.class);
+  }
+
+  /**
+   * Test the create function. Initialize inventory.
+   * Add it to mongo collection with the create function
+   * Print the ID before and after to check for null
+   */
+  @Test
+  public void createTest() {
+    Inventory inventory1 = new Inventory();
+    inventory1.setName(NAME);
+    inventory1.setId(ID);
+    inventory1.setProductType(PRODUCT_TYPE);
+    System.out.print("The initial ID is: " + inventory1.getId());
+    this.inventoryDAO.create(inventory1);
+    System.out.println("After Create Method ID: " + inventory1.getId());
+    Assert.assertTrue(inventory1.getId() != ID);
+    Assert.assertTrue(inventory1.getName() == NAME);
+    Assert.assertTrue(inventory1.getProductType() == PRODUCT_TYPE);
   }
 
   /**
