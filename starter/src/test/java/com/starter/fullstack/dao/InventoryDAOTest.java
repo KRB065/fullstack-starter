@@ -56,7 +56,23 @@ public class InventoryDAOTest {
     Assert.assertTrue(inventory1.getName() == NAME);
     Assert.assertTrue(inventory1.getProductType() == PRODUCT_TYPE);
   }
-
+  /**
+   * Test delete method
+   */
+  @Test
+  public void deleteTest() {
+    Inventory inventory = new Inventory();
+    inventory.setName(NAME);
+    inventory.setId(ID);
+    inventory.setProductType(PRODUCT_TYPE);
+    inventory = this.mongoTemplate.save(inventory);
+    String id = inventory.getId();
+    Inventory deletedInventory = inventoryDAO.delete(id).get();
+    //Delete should return the inventory thus being non-null
+    Assert.assertNotNull(deletedInventory);
+    //Inventory should no longer be in the database meaning searching by id should return null
+    Assert.assertNull(mongoTemplate.findById(id, Inventory.class));
+  }
   /**
    * Test Find All method.
    */
