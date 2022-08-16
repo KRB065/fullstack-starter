@@ -46,7 +46,7 @@ public class InventoryControllerTest {
 
   @After
   public void teardown() {
-    this.mongoTemplate.dropCollection(Product.class);
+    this.mongoTemplate.dropCollection(Inventory.class);
   }
 
   /**
