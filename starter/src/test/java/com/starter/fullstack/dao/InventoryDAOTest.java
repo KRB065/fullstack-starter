@@ -67,7 +67,7 @@ public class InventoryDAOTest {
     inventory.setProductType(PRODUCT_TYPE);
     inventory = this.mongoTemplate.save(inventory);
     String id = inventory.getId();
-    //isPresent confirms that the Inventory still exists but is only deleted from the inventoryDAO
+    //isPresent confirms that the Inventory contained was found by findAndRemove meaning that it was also removed
     Assert.assertTrue(inventoryDAO.delete(id).isPresent());
   }
   /**
