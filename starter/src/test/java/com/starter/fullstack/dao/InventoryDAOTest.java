@@ -69,8 +69,6 @@ public class InventoryDAOTest {
     String id = inventory.getId();
     //isPresent confirms that the Inventory still exists but is only deleted from the inventoryDAO
     Assert.assertTrue(inventoryDAO.delete(id).isPresent());
-    //Inventory should no longer be in the database meaning searching by id should return null
-    Assert.assertNull(this.mongoTemplate.findById(id, Inventory.class));
   }
   /**
    * Test Find All method.

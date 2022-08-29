@@ -86,6 +86,6 @@ public class InventoryDAO {
     
     Inventory inventory = mongoTemplate.findAndRemove(new Query().addCriteria(Criteria.where("id").is(id)),
       Inventory.class);
-    return Optional.of(inventory);
+    return Optional.ofNullable(inventory);
   }
 }
