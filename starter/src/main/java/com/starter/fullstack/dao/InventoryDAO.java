@@ -80,10 +80,12 @@ public class InventoryDAO {
   /**
    * Delete Inventory By Id.
    * @param id Id of Inventory.
+   * @return deleted Inventory
    */
-  public void delete(String id) {
+  public Optional<Inventory> delete(String id) {
     
-    mongoTemplate.findAndRemove(new Query().addCriteria(Criteria.where("id").is(id)), Inventory.class);
-    
+    Inventory inventory = mongoTemplate.findAndRemove(new Query().addCriteria(Criteria.where("id").is(id)),
+      Inventory.class);
+    return Optional.of(inventory);
   }
 }
