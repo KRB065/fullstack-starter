@@ -67,11 +67,8 @@ public class InventoryDAOTest {
     inventory.setProductType(PRODUCT_TYPE);
     inventory = this.mongoTemplate.save(inventory);
     String id = inventory.getId();
-    Inventory deletedInventory = inventoryDAO.delete(id).get();
-    //Delete should return the inventory thus being non-null
-    Assert.assertNotNull(deletedInventory);
-    //Inventory should no longer be in the database meaning searching by id should return null
-    Assert.assertNull(mongoTemplate.findById(id, Inventory.class));
+    //isPresent confirms that the Inventory contained was found by findAndRemove meaning that it was also removed
+    Assert.assertTrue(inventoryDAO.delete(id).isPresent());
   }
   /**
    * Test Find All method.
