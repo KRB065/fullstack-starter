@@ -1,5 +1,4 @@
 package com.starter.fullstack.dao;
-
 import com.starter.fullstack.api.Inventory;
 import java.util.List;
 import java.util.Optional;
@@ -82,7 +81,10 @@ public class InventoryDAO {
    * @return Deleted Inventory.
    */
   public Optional<Inventory> delete(String id) {
-    // TODO
-    return Optional.empty();
+    Inventory inventory = mongoTemplate.findById(id, Inventory.class);
+    if (inventory != null) {
+      mongoTemplate.remove(inventory);
+    }
+    return Optional.of(inventory);
   }
 }

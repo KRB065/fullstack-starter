@@ -1,8 +1,6 @@
 package com.starter.fullstack.rest;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.starter.fullstack.api.Inventory;
-import com.starter.fullstack.api.Product;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
