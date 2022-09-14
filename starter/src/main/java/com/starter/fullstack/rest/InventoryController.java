@@ -53,7 +53,6 @@ public class InventoryController {
    */
   @DeleteMapping()
   public Optional<Inventory> deleteInventory(@RequestBody String id) {
-    System.out.println("ID = " + id);
     Assert.notNull(id, "id must not be empty");
     return this.inventoryDAO.delete(id);
   }
