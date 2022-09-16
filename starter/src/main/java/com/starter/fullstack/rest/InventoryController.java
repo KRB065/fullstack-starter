@@ -51,7 +51,7 @@ public class InventoryController {
    * @param id id of inventory
    * @return deleted inventory
    */
-  @DeleteMapping()
+  @DeleteMapping
   public Optional<Inventory> deleteInventory(@RequestBody String id) {
     Assert.notNull(id, "id must not be empty");
     return this.inventoryDAO.delete(id);
