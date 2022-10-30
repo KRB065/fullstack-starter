@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.annotation.PostConstruct;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.FindAndReplaceOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.index.Index;
 import org.springframework.data.mongodb.core.index.IndexOperations;
@@ -73,10 +74,12 @@ public class InventoryDAO {
    * @return Updated Inventory.
    */
   public Optional<Inventory> update(String id, Inventory inventory) {
-    // TODO
-    return Optional.empty();
+    Inventory inventory1 = mongoTemplate.findAndReplace(new Query().addCriteria(Criteria.where("id").is(id)),
+      inventory, new FindAndReplaceOptions().returnNew(), Inventory.class, Inventory.class);
+    return Optional.ofNullable(inventory1);
   }
-
+  
+ 
   /**
    * Delete Inventory By Id.
    * @param id Id of Inventory.

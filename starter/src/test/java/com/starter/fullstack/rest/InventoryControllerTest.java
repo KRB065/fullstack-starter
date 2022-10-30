@@ -10,12 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -80,8 +84,22 @@ public class InventoryControllerTest {
 
     Assert.assertEquals(0, this.mongoTemplate.findAll(Inventory.class).size());
   }
+  /**
+   * Test the updateInventory method
+   * @throws Throwable see MockMvc
+   */
+  @Test 
+  public void updateTest() throws Throwable {
+    this.inventory.setName("TestUpdate");
+    this.mockMvc.perform(put("/inventory/")
+      .accept(MediaType.APPLICATION_JSON)
+      .contentType(MediaType.APPLICATION_JSON)
+      .content(this.objectMapper.writeValueAsString(this.inventory)))
+      .andExpect(status().isOk());
 
-  
+    Assert.assertEquals(this.inventory, this.mongoTemplate.find(new Query()
+      .addCriteria(Criteria.where("id").is(this.inventory.getId())), Inventory.class).get(0));
+  }
 
 }
 
