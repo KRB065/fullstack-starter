@@ -1,0 +1,189 @@
+import Button from '@material-ui/core/Button'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import Grid from '@material-ui/core/Grid'
+import React from 'react'
+import TextField from '../Form/TextField'
+import { Field, Form, Formik } from 'formik'
+import { MeasurementUnits } from '../../constants/units'
+import { Checkbox, FormControlLabel, MenuItem } from '@material-ui/core'
+import products from '../../ducks/products'
+
+const measurementUnitKeys = Object.keys(MeasurementUnits)
+const allProducts= products
+const date = new Date()
+class InventoryFormModal extends React.Component {
+  
+  render() {
+    const {
+      formName,
+      handleDialog,
+      handleProduct,
+      title,
+      initialValues
+    } = this.props
+    return (
+      <Dialog
+        open={this.props.isDialogOpen}
+        maxWidth='sm'
+        fullWidth={true}
+        onClose={() => { handleDialog(false) }}
+      >
+        <Formik
+          initialValues={initialValues}
+          onSubmit={values => {
+            handleProduct(values)
+            handleDialog(true)
+          }}>
+          {helpers =>
+            <Form
+              noValidate
+              autoComplete='off'
+              id={formName}
+            >
+              <DialogTitle id='alert-dialog-title'>
+                {`${title} Inventory`}
+              </DialogTitle>
+              <DialogContent>
+                <Grid container>
+                  <Grid item xs={12} sm={12}>
+                    <Field
+                      custom={{ variant: 'outlined', fullWidth: true, }}
+                      name='name'
+                      label='Name'
+                      required
+                      component={TextField}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container>
+                  <Grid item xs={12} sm={12}>
+                  <Field
+                    select
+                    custom={{ variant: 'outlined', fullWidth: true, }}
+                    name='product type'
+                    label='Product Type'
+                    component={TextField}
+                    >
+                      {allProducts.map((option) => (
+                        <MenuItem key={option.id} value={option.name}>
+                          {option.name}
+                            </MenuItem>
+                          ))}
+                      
+                    </Field>
+                    
+                  </Grid>
+                </Grid>
+                <Grid container>
+                  <Grid item xs={12} sm={12}>
+                    <Field
+                      custom={{ variant: 'outlined', fullWidth: true, }}
+                      name='description'
+                      label='Description'
+                      defaultValue='"'
+                      component={TextField}
+                    />
+                  </Grid>
+                  
+                </Grid>
+                <Grid container spacing='2' rowSpacing='2'>
+                  <Grid item xs={6} sm={6}>
+                    <Field
+                      custom={{ variant: 'outlined', fullWidth: true, }}
+                      inputProps = {{inputMode: 'numeric'}}
+                      name='average price'
+                      label='Average Price'
+                      type='number'
+                      defaultValue = "0"
+                      component={TextField}
+                    />
+                  </Grid>
+                  <Grid item xs={6} sm={6}>
+                    <Field
+                      custom={{ variant: 'outlined', fullWidth: true, }}
+                      inputProps = {{inputMode: 'numeric'}}
+                      name='amount'
+                      label='Amount'
+                      type='number'
+                      defaultValue = "0"
+                      component={TextField}
+                    />
+                  </Grid>
+                </Grid>
+               
+                <Grid container>
+                  <Grid item xs={12} sm={12}>
+                  
+
+                    <Field
+                    select
+                    required
+                    custom={{ variant: 'outlined', fullWidth: true, }}
+                    name='unit of measurement'
+                    label='Unit of Measurement'
+                    component={TextField}
+                    >
+                      {measurementUnitKeys.map((option) => (
+                        <MenuItem key={MeasurementUnits[option].name} value={MeasurementUnits[option].abbreviation}>
+                          {MeasurementUnits[option].name}
+                            </MenuItem>
+                          ))}
+                      
+                    </Field>
+                    
+                      
+                    
+                  </Grid>
+                </Grid>
+                <Grid container>
+                  <Grid item xs={12} sm={12}>
+                    <Field
+                      custom={{ variant: 'outlined', fullWidth: true, }}
+                      type="date"
+                      name='best before date'
+                      label='Best before date'
+                      defaultValue = {date.getFullYear()+'-'+ (date.getMonth()+1) +"-"+date.getDate()}
+                      component={TextField}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container>
+                  <Grid item xs={12} sm={12}>
+                      <Field
+                        custom={{ variant: 'outlined', fullWidth: true, }}
+                        defaultValue = {false}
+                        control={<Checkbox/>}
+                        name='never expires'
+                        label='Never Expires'
+                        labelPlacement='start'
+                        required
+                        component={FormControlLabel}
+                      />
+                    
+                  </Grid>
+                </Grid>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={() => { handleDialog(false) }} color='secondary'>Cancel</Button>
+                <Button
+                  disableElevation
+                  variant='contained'
+                  type='submit'
+                  form={formName}
+                  color='secondary'
+                  disabled={!helpers.dirty}>
+                  Save
+                </Button>
+              </DialogActions>
+            </Form>
+          }
+        </Formik>
+      </Dialog>
+    )
+  }
+}
+
+export default InventoryFormModal
