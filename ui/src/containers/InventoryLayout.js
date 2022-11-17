@@ -50,6 +50,7 @@ const InventoryLayout = (props) => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const inventory = useSelector(state => state.inventory.all)
+  const products = useSelector(state => state.products.all)
   const isFetched = useSelector(state => state.inventory.fetched && state.inventory.fetched)
   const createInventories = useCallback(inventory => {dispatch(inventoryDuck.createInventory(inventory))}, [dispatch])
   const removeInventories = useCallback(ids => { dispatch(inventoryDuck.deleteInventory(ids)) }, [dispatch])
@@ -174,15 +175,15 @@ const InventoryLayout = (props) => {
         <InventoryFormModal
           title='Create'
           formName='inventoryCreate'
-
+          products = {products}
           isDialogOpen={isCreateOpen}
           handleDialog={toggleModals}
-          handleProduct={createInventories}
+          handleInventory={createInventories}
           initialValues={{}}
         />
         <InventoryFormModal
           title='Edit'
-          formName='productEdit'
+          formName='inventoryEdit'
           isDialogOpen={isEditOpen}
           handleDialog={toggleModals}
           handleProduct={saveInventories}
