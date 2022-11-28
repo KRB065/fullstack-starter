@@ -60,12 +60,12 @@ class InventoryFormModal extends React.Component {
                     <Field
                       select
                       custom={{ variant: 'outlined', fullWidth: true, }}
-                      name='product type'
+                      name='productType'
                       label='Product Type'
                       component={TextField}
                       >
                         {products.map((product) => (
-                          <MenuItem key={product.id} value={product.name}>
+                          <MenuItem key={product.id} value={product}>
                             {product.name}
                               </MenuItem>
                             ))}
@@ -78,23 +78,21 @@ class InventoryFormModal extends React.Component {
                         custom={{ variant: 'outlined', fullWidth: true}}
                         name='description'
                         label='Description'
-                        defaultValue='"'
                         component={TextField}
                       />
                     </Grid>
-                    <Grid container spacing = {2}>
-                      <Grid item xs={6} sm={6}>
+                      <Grid item xs={12} sm={12} >
                         <Field
                           custom={{ variant: 'outlined', fullWidth: true, }}
                           inputProps = {{inputMode: 'numeric'}}
-                          name='average price'
+                          name='averagePrice'
                           label='Average Price'
                           type='number'
                           defaultValue = "0"
                           component={TextField}
                         />
                       </Grid>
-                      <Grid item xs={6} sm={6}>
+                      <Grid item xs={12} sm={12}>
                         <Field
                           custom={{ variant: 'outlined', fullWidth: true, }}
                           inputProps = {{inputMode: 'numeric'}}
@@ -105,7 +103,6 @@ class InventoryFormModal extends React.Component {
                           component={TextField}
                         />
                       </Grid>
-                    </Grid>
                     <Grid item xs={12} sm={12}>
                     
 
@@ -113,12 +110,12 @@ class InventoryFormModal extends React.Component {
                     select
                     required
                     custom={{ variant: 'outlined', fullWidth: true, }}
-                    name='unit of measurement'
+                    name='unitOfMeasurement'
                     label='Unit of Measurement'
                     component={TextField}
                     >
                       {measurementUnitKeys.map((option) => (
-                        <MenuItem key={MeasurementUnits[option].name} value={MeasurementUnits[option].abbreviation}>
+                        <MenuItem key={MeasurementUnits[option].abbreviation} value={option}>
                           {MeasurementUnits[option].name}
                             </MenuItem>
                           ))}
@@ -132,7 +129,7 @@ class InventoryFormModal extends React.Component {
                       <Field
                         custom={{ variant: 'outlined', fullWidth: true, }}
                         type="date"
-                        name='best before date'
+                        name='bestBeforeDate'
                         label='Best before date'
                         defaultValue = {date.getFullYear()+'-'+ (date.getMonth()+1) +"-"+date.getDate()}
                         component={TextField}
@@ -143,7 +140,7 @@ class InventoryFormModal extends React.Component {
                           custom={{ variant: 'outlined', fullWidth: true, }}
                           defaultValue = {false}
                           control={<Checkbox/>}
-                          name='never expires'
+                          name='neverExpires'
                           label='Never Expires'
                           labelPlacement='start'
                           required
