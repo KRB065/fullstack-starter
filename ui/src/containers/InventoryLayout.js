@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const normalizeInventory = (inventory) => inventory.map(inv => ({
   ...inv,
-  unitOfMeasurement: MeasurementUnits[inv.unitOfMeasurement].name,
+  unitOfMeasurement: MeasurementUnits[inv.unitOfMeasurement]?.name,
   bestBeforeDate: moment(inv.bestBeforeDate).format('MM/DD/YYYY')
 }))
 
@@ -179,7 +179,7 @@ const InventoryLayout = (props) => {
           isDialogOpen={isCreateOpen}
           handleDialog={toggleModals}
           handleInventory={createInventories}
-          initialValues={{}}
+          initialValues={{description: '', averagePrice: 0, amount: 0, bestBeforeDate: moment(new Date()).format('YYY-MM-DD'), neverExpires: false,}}
         />
         <InventoryFormModal
           title='Edit'

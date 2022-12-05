@@ -5,6 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import Grid from '@material-ui/core/Grid'
+import moment from 'moment'
 import React from 'react'
 import TextField from '../Form/TextField'
 import { Field, Form, Formik } from 'formik'
@@ -12,7 +13,6 @@ import { MeasurementUnits } from '../../constants/units'
 import { Checkbox, FormControlLabel, MenuItem } from '@material-ui/core'
 
 const measurementUnitKeys = Object.keys(MeasurementUnits)
-const date = new Date()
 class InventoryFormModal extends React.Component {
   render() {
     const {
@@ -33,6 +33,7 @@ class InventoryFormModal extends React.Component {
         <Formik
           initialValues={initialValues}
           onSubmit={values => {
+            values.bestBeforeDate = moment(values.bestBeforeDate).toISOString()
             handleInventory(values)
             handleDialog(true)
           }}>
@@ -65,7 +66,7 @@ class InventoryFormModal extends React.Component {
                       component={TextField}
                       >
                         {products.map((product) => (
-                          <MenuItem key={product.id} value={product}>
+                          <MenuItem key={product.id} value={product.name}>
                             {product.name}
                               </MenuItem>
                             ))}
@@ -88,7 +89,6 @@ class InventoryFormModal extends React.Component {
                           name='averagePrice'
                           label='Average Price'
                           type='number'
-                          defaultValue = "0"
                           component={TextField}
                         />
                       </Grid>
@@ -99,7 +99,6 @@ class InventoryFormModal extends React.Component {
                           name='amount'
                           label='Amount'
                           type='number'
-                          defaultValue = "0"
                           component={TextField}
                         />
                       </Grid>
@@ -131,19 +130,16 @@ class InventoryFormModal extends React.Component {
                         type="date"
                         name='bestBeforeDate'
                         label='Best before date'
-                        defaultValue = {date.getFullYear()+'-'+ (date.getMonth()+1) +"-"+date.getDate()}
                         component={TextField}
                       />
                     </Grid>
                     <Grid item xs={12} sm={12}>
                         <Field
                           custom={{ variant: 'outlined', fullWidth: true, }}
-                          defaultValue = {false}
                           control={<Checkbox/>}
                           name='neverExpires'
                           label='Never Expires'
                           labelPlacement='start'
-                          required
                           component={FormControlLabel}
                         />
                       
