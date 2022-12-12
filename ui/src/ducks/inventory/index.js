@@ -30,7 +30,7 @@ export const createInventory = createAction(actions.INVENTORY_CREATE, (inventory
     .then((suc) => {
       const invs = []
       //adds all the inventory not matching the created one to the array
-      getState().inventories.all.forEach(inv => {
+      getState().inventory.all.forEach(inv => {
         if (inv.id !== suc.data.id) {
           invs.push(inv)
         }
@@ -47,7 +47,7 @@ export const deleteInventory = createAction(actions.INVENTORY_DELETE, (id) =>
     .delete(`${config.restAPIUrl}/inventory`, {data: id})
     .then((suc) => {
       const invs = []
-      getState().inventories.all.forEach(inv => {
+      getState().inventory.all.forEach(inv => {
         //pushes all the inventories that don't include the deleted id
         if (!id.includes(inv.id)) {
           invs.push(inv)

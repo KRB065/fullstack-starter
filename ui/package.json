@@ -15,7 +15,7 @@
     "core-js": "^3.6.4",
     "flux-standard-action": "2.1.1",
     "formik": "^2.1.7",
-    "moment": "^2.26.0",
+    "moment": "^2.29.4",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

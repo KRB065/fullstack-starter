@@ -58,8 +58,10 @@ public class InventoryControllerTest {
    */
   @Test
   public void createTest() throws Throwable {
+    this.inventory = new Inventory();
     this.inventory.setId("New ID");
     this.inventory.setName("Test 2");
+    this.inventory.setNeverExpires(false);
     this.mockMvc.perform(post("/inventory")
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
