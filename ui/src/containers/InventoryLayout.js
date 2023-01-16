@@ -2,6 +2,7 @@ import * as inventoryDuck from '../ducks/inventory'
 import * as productDuck from '../ducks/products'
 import Checkbox from '@material-ui/core/Checkbox'
 import Grid from '@material-ui/core/Grid'
+import InventoryDeleteModal from '../components/Inventories/InventoryDeleteModal'
 import InventoryFormModal from '../components/Inventories/InventoryFormModal'
 import { makeStyles } from '@material-ui/core/styles'
 import { MeasurementUnits } from '../constants/units'
@@ -78,14 +79,15 @@ const InventoryLayout = (props) => {
     setDeleteOpen(false)
     setEditOpen(false)
     if (resetChecked) {
-      setChecked([])
+      setSelected([])
     }
   }
-  const [checked, setChecked] = React.useState([])
+  // const [checked, setChecked] = React.useState([])
   const normalizedInventory = normalizeInventory(inventory)
   const [order, setOrder] = React.useState('asc')
   const [orderBy, setOrderBy] = React.useState('calories')
   const [selected, setSelected] = React.useState([])
+  let [currentInventory, setInventory] = React.useState(null)
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc'
@@ -118,6 +120,7 @@ const InventoryLayout = (props) => {
       )
     }
     setSelected(newSelected)
+    setInventory(normalizedInventory?.find(inv => inv.id = selected[0]))
   }
 
   const isSelected = (id) => selected.indexOf(id) !== -1
@@ -147,6 +150,9 @@ const InventoryLayout = (props) => {
               {stableSort(normalizedInventory, getComparator(order, orderBy))
                 .map(inv => {
                   const isItemSelected = isSelected(inv.id)
+                  if (isItemSelected){
+                    currentInventory = inv
+                  }
                   return (
                     <TableRow
                       hover
@@ -188,13 +194,15 @@ const InventoryLayout = (props) => {
           isDialogOpen={isEditOpen}
           handleDialog={toggleModals}
           handleInventory={saveInventories}
-          initialValues={checked[0]}
+          initialValues={{name: currentInventory?.name, productType: currentInventory?.productType, description: currentInventory?.description, averagePrice: currentInventory?.averagePrice,
+          amount: currentInventory?.amount, bestBeforeDate: moment(currentInventory?.bestBeforeDate).format('YYYY-MM-DD'),
+          neverExpires: currentInventory?.neverExpires, unitOfMeasurement: currentInventory?.unitOfMeasurement, id: currentInventory?.id,}}
         />
-        <InventoryFormModal
+        <InventoryDeleteModal
           isDialogOpen={isDeleteOpen}
           handleDelete={removeInventories}
           handleDialog={toggleModals}
-          initialValues={checked.map(check => check.id)}
+          initialValues={selected[0]}
         />
       </Grid>
     </Grid>
